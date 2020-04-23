@@ -6,14 +6,14 @@ const bootstrapServer = async () => {
   // Construct a schema, using GraphQL schema language
   const schema = buildSchema(`
     type Query {
-      hello: String
+      helloo: String
     }
   `);
 
   // The root provides a resolver function for each API endpoint
   const root = {
     hello: () => {
-      return 'Hello world!';
+      return 'Hello worlds!';
     },
   };
 
