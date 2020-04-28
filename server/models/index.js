@@ -1,1 +1,2 @@
 require('./workout');
+require('./exercise');

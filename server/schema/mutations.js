@@ -15,6 +15,16 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { title }) {
         return (new Workout({ title })).save()
       }
+    },
+    addExerciseToWorkout: {
+      type: WorkoutType,
+      args: {
+        title: { type: GraphQLString },
+        workoutId: { type: GraphQLID }
+      },
+      resolve(parentValue, { title, workoutId }) {
+        return Workout.addExercise(workoutId, title);
+      }
     }
   }
 });
