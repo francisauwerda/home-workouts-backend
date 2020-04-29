@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Workout = mongoose.model('workout');
 const Exercise = mongoose.model('exercise');
 const WorkoutType = require('./workout_type');
+const ExerciseType = require('./exercise_type');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -37,6 +38,15 @@ const mutation = new GraphQLObjectType({
           Exercise.deleteMany({ workout: id }),
           Workout.deleteOne({ _id: id })
         ])
+      }
+    },
+    deleteExercise: {
+      type: ExerciseType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parentValue, { id }) {
+        return Exercise.deleteOne({ _id: id })
       }
     }
   }
