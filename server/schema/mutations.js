@@ -5,6 +5,13 @@ const Workout = mongoose.model('workout');
 const Exercise = mongoose.model('exercise');
 const WorkoutType = require('./workout_type');
 const ExerciseType = require('./exercise_type');
+const {
+  addWorkout,
+  addExericseToWorkout,
+  deleteWorkout
+} = require('../requestHandlers/workout');
+
+const { deleteExercise } = require('../requestHandlers/exercise');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -15,7 +22,7 @@ const mutation = new GraphQLObjectType({
         title: { type: GraphQLString }
       },
       resolve(parentValue, { title }) {
-        return (new Workout({ title })).save()
+        return addWorkout({ title });
       }
     },
     addExerciseToWorkout: {
@@ -25,7 +32,7 @@ const mutation = new GraphQLObjectType({
         workoutId: { type: GraphQLID }
       },
       resolve(parentValue, { title, workoutId }) {
-        return Workout.addExercise(workoutId, title);
+        return addExericseToWorkout({ title }, workoutId);
       }
     },
     deleteWorkout: {
@@ -34,10 +41,7 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLID }
       },
       resolve(parentValue, { id }) {
-        return Promise.all([
-          Exercise.deleteMany({ workout: id }),
-          Workout.deleteOne({ _id: id })
-        ])
+        return deleteWorkout(id);
       }
     },
     deleteExercise: {
@@ -46,7 +50,7 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLID }
       },
       resolve(parentValue, { id }) {
-        return Exercise.deleteOne({ _id: id })
+        return deleteExercise(id);
       }
     }
   }
