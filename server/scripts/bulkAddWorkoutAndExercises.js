@@ -1,5 +1,8 @@
+const { connectToDb, disconnectFromDb } = require('../db');
+connectToDb();
+
 const createWorkout = require('./createWorkout');
-const addExerciseToWorkout = require('./addExerciseToWorkout');
+const createExercise = require('./createExercise');
 
 const fakeData = {
   workoutName: 'Workout A',
@@ -12,13 +15,26 @@ const fakeData = {
   }]
 }
 
-const bulkAddWorkoutAndExercises = (data) => {
-  const workoutId = createWorkout(data.workoutName);
+// rtewtij43otwj-dips.jpg
 
-  data.exercises.forEach(exercise => {
-    const { exerciseName, imagePath } = exercise;
-    addExerciseToWorkout(exerciseName, imagePath, workoutId)
-  })
+const bulkAddWorkoutAndExercises = async (data) => {
+  const { workoutName, exercises } = data;
+
+  const workoutId = await createWorkout(workoutName);
+
+  let workoutIds = await Promise.all(
+    exercises.map(async exercise => {
+      const { exerciseName, imagePath } = exercise;
+      const id = await createExercise(exerciseName, imagePath, workoutId)
+      return id;
+    })
+  )
+
+  return workoutIds;
 }
 
-bulkAddWorkoutAndExercises(fakeData);
+(async () => {
+  const result = await bulkAddWorkoutAndExercises(fakeData);
+  console.log(`\n---\n Finished. Time to disconnect \n---\n`);
+  disconnectFromDb();
+})();

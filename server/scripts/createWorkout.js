@@ -1,8 +1,9 @@
+const { addWorkout } = require('../requestHandlers/workout');
 
-const createWorkout = (workoutName) => {
-  const workoutId = 'w1';
-  console.log(`\nWorkout '${workoutName}' added with ID: ${workoutId}\n`)
-  return workoutId;
+const createWorkout = async (title) => {
+  const workout = await addWorkout({ title });
+  console.log(`\nWorkout '${workout.title}' added with ID: ${workout.id}\n`)
+  return workout.id;
 }
 
 module.exports = createWorkout;
