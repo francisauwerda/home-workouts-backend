@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const ExerciseSchema = new Schema({
   title: { type: String },
+  imageUrl: { type: String },
   workout: {
     type: Schema.Types.ObjectId,
     ref: 'workout'

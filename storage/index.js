@@ -13,27 +13,28 @@ const s3 = new AWS.S3({
   secretAccessKey: SECRET
 });
 
-const uploadFile = (filename) => {
-  const fileContent = fs.readFileSync(filename);
+const uploadFile = (filePath, fileKey) => {
+  const fileContent = fs.readFileSync(filePath);
 
   const params = {
     Bucket: BUCKET_NAME,
-    Key: 'dips2.jpg', // TODO: convert key to filename and serialize.
+    Key: fileKey,
     Body: fileContent
   }
 
-  s3.upload(params, function(err, data) {
-    if (err) {
-      console.log('\n---\n err:\n', err, '\n---');
-      throw err;
-    }
-    console.log('\n---\n File uploaded successfully:\n', data.Location, '\n---');
-    return data.Location;
+  return new Promise((resolve, reject) => {
+    s3.upload(params, function(error, data) {
+      if (error) {
+        console.log('\n---\n Error found:\n', error, '\n---');
+        reject(error);
+      }
+
+      console.log('\n---\n File uploaded successfully:\n', data.Location, '\n---');
+      resolve(data.Location)
+    });
   })
 }
 
-// const IMG_URL = 'images/dips.jpg'
-// uploadFile(IMG_URL);
 module.exports = {
   uploadFile
 }

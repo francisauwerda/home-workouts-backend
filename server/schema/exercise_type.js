@@ -14,6 +14,7 @@ const ExerciseType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
+    imageUrl: { type: GraphQLString },
     workout: {
       // TODO: Find out why I can't require this from the top
       type: require('./workout_type'),

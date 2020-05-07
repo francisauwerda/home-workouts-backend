@@ -8,8 +8,8 @@ const addWorkout = async ({ title }) => {
   return workout;
 }
 
-const addExericseToWorkout = async ({ title }, workoutId) => {
-  const workout = await Workout.addExercise(workoutId, title);
+const addExericseToWorkout = async ({ title, imageUrl }, workoutId) => {
+  const workout = await Workout.addExercise(workoutId, { title, imageUrl });
 
   return workout;
 }

@@ -29,10 +29,11 @@ const mutation = new GraphQLObjectType({
       type: WorkoutType,
       args: {
         title: { type: GraphQLString },
+        imageUrl: { type: GraphQLString },
         workoutId: { type: GraphQLID }
       },
-      resolve(parentValue, { title, workoutId }) {
-        return addExericseToWorkout({ title }, workoutId);
+      resolve(parentValue, { title, imageUrl, workoutId }) {
+        return addExericseToWorkout({ title, imageUrl }, workoutId);
       }
     },
     deleteWorkout: {

@@ -20,6 +20,7 @@ const connectToDb = () => {
 
 const disconnectFromDb = () => {
   mongoose.disconnect();
+  console.log('\n\nSuccessfully disconnected!\n\n');
 }
 
 module.exports = {

@@ -10,13 +10,14 @@ const WorkoutSchema = new Schema({
 });
 
 // TODO: Change to async/await
-WorkoutSchema.statics.addExercise = function (id, title) {
+WorkoutSchema.statics.addExercise = function (id, { title, imageUrl }) {
   const Exercise = mongoose.model('exercise');
 
   return this.findById(id)
     .then(workout => {
       const exercise = new Exercise({
         title,
+        imageUrl,
         workout
       })
 
