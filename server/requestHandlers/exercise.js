@@ -13,6 +13,10 @@ const getFileKey = (imageUrl) => {
 
 const deleteExercise = async (id) => {
   const exercise = await Exercise.findById(id);
+  if (!exercise) {
+    return;
+  }
+
   const { imageUrl } = exercise;
   const fileKey = getFileKey(imageUrl);
 
