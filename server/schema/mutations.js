@@ -8,7 +8,8 @@ const ExerciseType = require('./exercise_type');
 const {
   addWorkout,
   addExericseToWorkout,
-  deleteWorkout
+  deleteWorkout,
+  editWorkout
 } = require('../requestHandlers/workout');
 
 const { deleteExercise, editExercise } = require('../requestHandlers/exercise');
@@ -43,6 +44,16 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { id }) {
         return deleteWorkout(id);
+      }
+    },
+    editWorkout: {
+      type: WorkoutType,
+      args: {
+        id: { type: GraphQLID },
+        title: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, title }) {
+        return editWorkout(id, { title })
       }
     },
     deleteExercise: {

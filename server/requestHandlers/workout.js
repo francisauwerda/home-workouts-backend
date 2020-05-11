@@ -21,6 +21,15 @@ const deleteWorkout = async (id) => {
   ])
 }
 
+const editWorkout = async (id, { title }) => {
+  const workout = await Workout.findById(id);
+  if (title) {
+    workout.title = title;
+  }
+
+  return (await workout).save();
+}
+
 const deleteWorkoutsAndExercises = async () => {
   return Promise.all([
     Exercise.deleteMany({}),
@@ -32,5 +41,6 @@ module.exports = {
   addWorkout,
   addExericseToWorkout,
   deleteWorkout,
+  editWorkout,
   deleteWorkoutsAndExercises
 }
