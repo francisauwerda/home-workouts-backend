@@ -35,6 +35,26 @@ const uploadFile = (filePath, fileKey) => {
   })
 }
 
+const deleteObject = (fileKey) => {
+  const params = {
+    Bucket: BUCKET_NAME,
+    Key: fileKey
+  }
+  
+  return new Promise((resolve, reject) => {
+    s3.deleteObject(params, function(error, data) {
+      if (error) {
+        console.log('\n---\n Error found:\n', error, '\n---');
+        reject(error);
+      }
+
+      console.log(`\n---\n Object deleted with key: ${fileKey} \n---\n`);
+      resolve(data);
+    })
+  })
+}
+
 module.exports = {
-  uploadFile
+  uploadFile,
+  deleteObject
 }

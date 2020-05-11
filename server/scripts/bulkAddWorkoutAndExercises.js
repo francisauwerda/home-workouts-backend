@@ -4,15 +4,15 @@ const createWorkout = require('./createWorkout');
 const createExercise = require('./createExercise');
 
 const fakeData = {
-  workoutName: 'Workout A',
+  workoutName: 'Nelis workout',
   exercises: [{
     exerciseName: 'Dips',
     imagePath: 'images/dips.jpg'
   }
-  // ,{
-  //   exerciseName: 'Jumping squats',
-  //   imagePath: '/images/dips.jpg'
-  // }
+  ,{
+    exerciseName: 'Jumping squats',
+    imagePath: 'images/dips.jpg'
+  }
 ]
 }
 
