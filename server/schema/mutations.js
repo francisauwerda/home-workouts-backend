@@ -11,7 +11,7 @@ const {
   deleteWorkout
 } = require('../requestHandlers/workout');
 
-const { deleteExercise } = require('../requestHandlers/exercise');
+const { deleteExercise, editExercise } = require('../requestHandlers/exercise');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -52,6 +52,19 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { id }) {
         return deleteExercise(id);
+      }
+    },
+    editExercise: {
+      type: ExerciseType,
+      args: {
+        id: { type: GraphQLID },
+        title: { type: GraphQLString },
+        imageUrl: { type: GraphQLString },
+      },
+      resolve(parentValue, {
+        id, title, imageUrl
+      }) {
+        return editExercise(id, { title, imageUrl });
       }
     }
   }
