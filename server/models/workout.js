@@ -10,7 +10,7 @@ const WorkoutSchema = new Schema({
 });
 
 // TODO: Change to async/await
-WorkoutSchema.statics.addExercise = function (id, { title, imageUrl }) {
+WorkoutSchema.statics.addExercise = function (id, { title, imageUrl, order }) {
   const Exercise = mongoose.model('exercise');
 
   return this.findById(id)
@@ -18,6 +18,7 @@ WorkoutSchema.statics.addExercise = function (id, { title, imageUrl }) {
       const exercise = new Exercise({
         title,
         imageUrl,
+        order,
         workout
       })
 

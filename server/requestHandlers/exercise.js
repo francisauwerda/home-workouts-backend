@@ -18,15 +18,18 @@ const deleteExercise = async (id) => {
   }
 
   const { imageUrl } = exercise;
-  const fileKey = getFileKey(imageUrl);
+  if (imageUrl) {
+    const fileKey = getFileKey(imageUrl);
 
-  // Try to delete the image from S3 bucket.
-  // If it doesn't exist, it doesn't throw an error.
-  await deleteObject(fileKey);
+    // Try to delete the image from S3 bucket.
+    // If it doesn't exist, it doesn't throw an error.
+    await deleteObject(fileKey);
+  }
+
   return (await exercise).remove();
 }
 
-const editExercise = async (id, { title, imageUrl }) => {
+const editExercise = async (id, { title, imageUrl, order }) => {
   const exercise = await Exercise.findById(id);
   if (title) {
     exercise.title = title;
@@ -34,6 +37,10 @@ const editExercise = async (id, { title, imageUrl }) => {
 
   if (imageUrl) {
     exercise.imageUrl = imageUrl;
+  }
+
+  if (order) {
+    exercise.order = order;
   }
 
   return (await exercise).save();

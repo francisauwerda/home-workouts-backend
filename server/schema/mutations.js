@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt } = graphql;
 const mongoose = require('mongoose');
 const Workout = mongoose.model('workout');
 const Exercise = mongoose.model('exercise');
@@ -31,10 +31,11 @@ const mutation = new GraphQLObjectType({
       args: {
         title: { type: GraphQLString },
         imageUrl: { type: GraphQLString },
+        order: { type: GraphQLInt },
         workoutId: { type: GraphQLID }
       },
-      resolve(parentValue, { title, imageUrl, workoutId }) {
-        return addExericseToWorkout({ title, imageUrl }, workoutId);
+      resolve(parentValue, { title, imageUrl, order, workoutId }) {
+        return addExericseToWorkout({ title, imageUrl, order }, workoutId);
       }
     },
     deleteWorkout: {
@@ -71,11 +72,12 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLID },
         title: { type: GraphQLString },
         imageUrl: { type: GraphQLString },
+        order: { type: GraphQLInt },
       },
       resolve(parentValue, {
-        id, title, imageUrl
+        id, title, imageUrl, order
       }) {
-        return editExercise(id, { title, imageUrl });
+        return editExercise(id, { title, imageUrl, order });
       }
     }
   }

@@ -36,6 +36,8 @@ const uploadFile = (filePath, fileKey) => {
 }
 
 const deleteObject = (fileKey) => {
+  if (!fileKey) return;
+
   const params = {
     Bucket: BUCKET_NAME,
     Key: fileKey

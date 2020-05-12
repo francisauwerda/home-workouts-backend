@@ -6,13 +6,20 @@ const createExercise = require('./createExercise');
 const fakeData = {
   workoutName: 'Nelis workout',
   exercises: [{
-    exerciseName: 'Dips',
-    imagePath: 'images/dips.jpg'
+    exerciseName: 'Dips2',
+    // imagePath: 'images/dips.jpg',
+    // order: 1
   }
-  ,{
-    exerciseName: 'Jumping squats',
-    imagePath: 'images/dips.jpg'
-  }
+  // ,{
+  //   exerciseName: 'Jumping squats',
+  //   imagePath: 'images/dips.jpg',
+  //   order: 3
+  // }
+  // ,{
+  //   exerciseName: 'No image',
+  //   // imagePath: 'images/dips.jpg',
+  //   // order: 3
+  // }
 ]
 }
 
@@ -23,8 +30,8 @@ const bulkAddWorkoutAndExercises = async (data) => {
 
   let workoutIds = await Promise.all(
     exercises.map(async exercise => {
-      const { exerciseName, imagePath } = exercise;
-      const id = await createExercise(exerciseName, imagePath, workoutId)
+      const { exerciseName, imagePath, order } = exercise;
+      const id = await createExercise(exerciseName, imagePath, order, workoutId)
       return id;
     })
   )
