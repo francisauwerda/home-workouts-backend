@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const graphqlHTTP = require('express-graphql');
 const { connectToDb } = require('./server/db');
 
@@ -9,6 +10,12 @@ const bootstrapServer = async () => {
   connectToDb();
   
   const app = express();
+  
+  const corsOptions = {
+    origin: 'http://localhost:3000'
+  };
+  app.use(cors(corsOptions))
+
   app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true,
