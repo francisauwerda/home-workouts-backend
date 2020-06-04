@@ -19,7 +19,8 @@ const uploadFile = (filePath, fileKey) => {
   const params = {
     Bucket: BUCKET_NAME,
     Key: fileKey,
-    Body: fileContent
+    Body: fileContent,
+    ACL: "public-read"
   }
 
   return new Promise((resolve, reject) => {
