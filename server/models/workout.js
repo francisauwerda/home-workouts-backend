@@ -36,7 +36,11 @@ WorkoutSchema.statics.addExercise = function (id, { title, imageUrl, order }) {
 WorkoutSchema.statics.findExercises = function (id) {
   return this.findById(id)
     .populate('exercises')
-    .then(workout => workout.exercises);
+    .then(workout => workout.exercises)
+    .then(exercises => {
+      const sorted = exercises.sort((a, b) => a.order - b.order)
+      return sorted;
+    })
 }
 
 mongoose.model('workout', WorkoutSchema);
