@@ -5,7 +5,7 @@ const { connectToDb } = require('./server/db');
 
 const { buildSchema } = require('graphql');
 const schema = require('./server/schema/schema');
-
+const port = parseInt(process.env.PORT, 10) || 4000;
 const bootstrapServer = async () => {
   connectToDb();
   
@@ -21,7 +21,7 @@ const bootstrapServer = async () => {
     graphiql: true,
   }));
   
-  app.listen(4000);
+  app.listen(port);
   console.log('Running a GraphQL API server at http://localhost:4000/graphql');
 }
 
