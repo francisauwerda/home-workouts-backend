@@ -6,13 +6,14 @@ const { connectToDb } = require('./server/db');
 const { buildSchema } = require('graphql');
 const schema = require('./server/schema/schema');
 const port = parseInt(process.env.PORT, 10) || 4000;
+const origin = process.env.WEB_APP_URI || 'http://localhost:3000';
 const bootstrapServer = async () => {
   connectToDb();
   
   const app = express();
   
   const corsOptions = {
-    origin: 'http://localhost:3000'
+    origin
   };
   app.use(cors(corsOptions))
 
@@ -22,7 +23,7 @@ const bootstrapServer = async () => {
   }));
   
   app.listen(port);
-  console.log('Running a GraphQL API server at http://localhost:4000/graphql');
+  console.log(`Running a GraphQL API server at http://localhost:${port}/graphql`);
 }
 
 bootstrapServer();
