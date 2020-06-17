@@ -15,6 +15,8 @@ const bootstrapServer = async () => {
   const corsOptions = {
     origin
   };
+
+  console.log('\n---\n corsOption:\n', corsOptions, '\n---');
   app.use(cors(corsOptions))
 
   app.use('/graphql', graphqlHTTP({
@@ -25,5 +27,8 @@ const bootstrapServer = async () => {
   app.listen(port);
   console.log(`Running a GraphQL API server at http://localhost:${port}/graphql`);
 }
-
-bootstrapServer();
+try {
+  bootstrapServer();
+} catch (error) {
+  console.log('\n---\n error:\n', error, '\n---');
+}
